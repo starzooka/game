@@ -1,4 +1,5 @@
 <?php
+
 include "./shared/database/connect.php";
 session_start();
 
@@ -34,11 +35,13 @@ include("./shared/components/head/head.php");
                     <?php
                     // take user_id from session storage
                     $user_id = $_SESSION['user_id'];
-
-
+                    // query database
                     $sqlQuery = "SELECT * FROM items WHERE user_id=$user_id";
+                    // execute query
                     $result = mysqli_query($conn, $sqlQuery);
+                    // check if query was successful
                     if (mysqli_num_rows($result) > 0) {
+                        // output data of each row
                         while ($row = mysqli_fetch_assoc($result)) {
                             // Access column values using associative array keys
                             $i = 0;
@@ -57,7 +60,6 @@ include("./shared/components/head/head.php");
         </section>
     </div>
 
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>
