@@ -35,8 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $usernameExists = true;
     }
 
-    // Validate password
-    if($usernameExists == false && $emailExists == false){
+    if(($usernameExists == false && $username != "") && ($emailExists == false && $email != "")){
         if($password!= $confirm_password){
             $showpassWordError = true;
         }else{
