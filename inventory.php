@@ -60,7 +60,6 @@ include("./shared/components/head/head.php");
         </section>
     </div>
 
-    <script src="js/scripts.js"></script>
 </body>
 
 </html>

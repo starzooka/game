@@ -60,6 +60,5 @@ include("./shared/components/sidebar/navbar.php");
         </section>
     </div>
 
-    <script src="js/scripts.js"></script>
 </body>
 </html>

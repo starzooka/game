@@ -16,7 +16,6 @@
         <ul>
             
             <li><a href="index.php"><i class="fas fa-home"></i> Dashboard</a></li>
-            <li><a href="transactions.php"><i class="fas fa-money-bill-wave"></i> Transactions</a></li>
             <li><a href="inventory.php"><i class="fas fa-boxes"></i> Inventory</a></li>
             <li><a href="employees.php"><i class="fas fa-users"></i> Employees</a></li>
             <li><a href="market.php"><i class="fas fa-users"></i> market</a></li>
