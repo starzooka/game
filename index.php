@@ -1,56 +1,28 @@
 <?php
+// including connect.php to connect to the database
 include "./shared/database/connect.php";
 session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
-
 if(!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true){
     header("location: register.php");
 }
-
 ?>
-
 <?php 
+// including head.php
 include("./shared/components/head/head.php");
 ?>
 <body>
+    
 <?php
+// including navbar.php
 include("./shared/components/sidebar/navbar.php");
 ?>
-
     <div class="content">
-        <section id="transactions">
-            <h2>Transactions</h2>
-            <p>This section displays transactions of the business.</p>
-            <!-- You can add transaction data here -->
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Description</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2024-04-01</td>
-                        <td>Sale of Product A</td>
-                        <td>$100.00</td>
-                    </tr>
-                    <tr>
-                        <td>2024-04-02</td>
-                        <td>Purchase of Supplies</td>
-                        <td>-$50.00</td>
-                    </tr>
-                    <!-- Add more transactions as needed -->
-                </tbody>
-            </table>
-        </section>
-
         <section id="inventory">
             <h2>Inventory</h2>
             <p>This section displays the inventory.</p>
-            <!-- You can add inventory data here -->
+            
             <table>
                 <thead>
                     <tr>
@@ -60,10 +32,13 @@ include("./shared/components/sidebar/navbar.php");
                 </thead>
                 <tbody>
                     <?php
+                    // Get the user id from the session
                     $user_id = $_SESSION['user_id'];
+                    // Create a sql query
                     $sqlQuery = "SELECT * FROM items WHERE user_id=$user_id";
+                    // Execute the sql query
                     $result = mysqli_query($conn, $sqlQuery);
-        
+                    // Check if there are any rows returned by the sql query
                     if(mysqli_num_rows($result) > 0){
                         while($row = mysqli_fetch_assoc($result)){
                             $i = 0;
@@ -72,36 +47,28 @@ include("./shared/components/sidebar/navbar.php");
                             echo '<td> '. $row['item_name'] .'</td>';
                             echo '<td> '. $row['quantity'] .' kg</td>';
                             echo "</tr>";
+                            // Break the loop after 5 iterations
                             if($i < 5){
                                 break;
                             }else{
                                 $i = $i + 1;
                             }
-        
                         }
                     }
                     ?>
                 </tbody>
             </table>
         </section>
-
-        <section id="employees">
+        <!-- <section id="employees">
             <h2>Employees</h2>
             <p>This section displays the list of employees.</p>
-            <!-- You can add employee data here -->
             <ul>
                 <li>John Doe</li>
                 <li>Jane Smith</li>
                 <li>Michael Johnson</li>
-    <?php
-    include('./shared/database/connect.php');
-    
-    ?>
-                <!-- Add more employee names as needed -->
+                
             </ul>
-        </section>
+        </section> -->
     </div>
-
-    <script src="js/scripts.js"></script>
 </body>
 </html>

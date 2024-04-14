@@ -1,18 +1,25 @@
 <?php
+// Include the database connection file
 include "./shared/database/connect.php";
+
+// Initialize variables to track if email and username already exist, and to control alert messages
 $emailExists = false;
 $usernameExists = false;
 $showAlert = false;
 $showError = false;
 $showpassWordError = false;
 $showLoaded = false;
+
+// Check if the form has been submitted
 if($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Assign form data to variables
     $email = $_POST['email'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm-password'];
 
+    // Check if the email already exists in the database
     $existsEmailSQL = "SELECT * FROM user WHERE email='$email'";
     $emailResult = mysqli_query($conn, $existsEmailSQL);
     $numEmailRowsOfEmail = mysqli_num_rows($emailResult);
@@ -20,6 +27,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $emailExists = true;
     }
 
+    // Check if the username already exists in the database
     $existsSQL = "SELECT * FROM user WHERE username='$username'";
     $result = mysqli_query($conn, $existsSQL);
     $numExistRowsofUsername = mysqli_num_rows($result);
@@ -29,14 +37,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate password
     if($usernameExists == false && $emailExists == false){
-        if($password != $confirm_password){
+        if($password!= $confirm_password){
             $showpassWordError = true;
         }else{
+            // Hash the password before storing it in the database
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert the new user into the database
             $sql = "INSERT INTO `user` (`username`, `email`, `password`, `createdAt`, `updatedAt`) VALUES ('$username', '$email', '$hashedPassword', current_timestamp(), current_timestamp());";
             $result = mysqli_query($conn, $sql);
+
+            // If the user was successfully inserted, add some default items to their inventory
             if($result){
                 $showAlert = true;
+
+                // Find the user_id of the new user
                 $sqlQureyForFindingUser_id = "SELECT * FROM user where username = '$username' ";
                 $resultForFindingUser_id = mysqli_query($conn, $sqlQureyForFindingUser_id);
                 if (mysqli_num_rows($resultForFindingUser_id) > 0) {
@@ -44,6 +59,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         $user_id = $row['user_id'];
                     }
                 }
+
+                // Insert the default items into the database
                 $sql = "
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id', 1, 'Stone');
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id', 2, 'Iron');
@@ -61,22 +78,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id' 13, 'Chiken');
                 ";
 
+                // Execute the SQL query to insert the default items
                 $result = mysqli_multi_query($conn, $sql);
+
+                // If the items were successfully inserted, display a successmessage
                 if($result){
                     $showLoaded = true;
-                }else{
-                    $showError = true;
                 }
-
-            }else{
-                $showError = true;
             }
         }
     }
+
 }
-?>
-<?php 
-include("./shared/components/head/head.php");
+
+// Include the header file
+include "./shared/components/head/head.php";
 ?>
 <style>
     .container {
@@ -115,11 +131,10 @@ include("./shared/components/head/head.php");
 </style>
 </head>
 <body>
+
 <?php
 include("./shared/components/sidebar/navbar.php");
 ?>
-
-
 <body>
 <!DOCTYPE html>
 <html>
