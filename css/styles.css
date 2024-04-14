@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    display: flex;
 }
 
 .sidebar {
@@ -10,9 +11,10 @@ body {
     width: 250px;
     background-color: #333;
     padding-top: 20px;
-    /* position: fixed; */
+    position: relative;
     top: 0;
     left: 0;
+    height: 100vh;
 }
 
 .sidebar h2 {
