@@ -3,7 +3,10 @@
 include "./shared/database/connect.php";
 // Starting session
 session_start();
-
+// Check if the user is logged in, if not then redirect him to login page
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin']!= true) {
+    header("location: register.php");
+}
 // Retrieving session variables
 $selling_item_name = $_SESSION['sell_item_name'];
 $selling_item_id = $_SESSION['sell_item_id'];
