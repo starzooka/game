@@ -13,6 +13,9 @@
                 <a type="button" href="/game/login.php" class="btn btn-light">Login</a>';
         }
         ?>
+        <span style="color: white;;">$<?php
+        include "./shared/economy.php";
+        ?></span>
         <ul>
             
             <li><a href="index.php"><i class="fas fa-home"></i> Dashboard</a></li>

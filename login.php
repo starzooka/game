@@ -20,8 +20,13 @@ session_start();
 /**
  * Redirect the user to the index page if they are already logged in.
  */
-if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true){
-    header("location: index.php");
+try{
+    if(isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == true){
+        header("location: index.php");
+    }
+
+}catch(error){
+
 }
 
 /**
@@ -160,7 +165,7 @@ include("./shared/components/sidebar/navbar.php");
             echo '<div class="alert alert-success" role="alert">You have successfully Login.</div>';
         }
         if($showError){
-            echo '<div class="alert alert-danger" role="alert">Something went wrong.</div>';
+            echo '<div class="alert alert-danger" role="alert">User does not exists.</div>';
         }
         if($showpassWordError){
             echo '<div class="alert alert-danger" role="alert">Invalid credentials.</div>';
