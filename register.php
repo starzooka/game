@@ -61,6 +61,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Insert the default items into the database
                 $sql = "
+                INSERT INTO `economy` (`user_id`) VALUES ('$user_id');
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id', 1, 'Stone');
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id', 2, 'Iron');
                 INSERT INTO `items` (`user_id`, `item_id`, `item_name`) VALUES ('$user_id', 3, 'Copper');

@@ -87,13 +87,20 @@ include("./shared/components/head/head.php");
 
                         // Check if the item is not sold
                         if ($row['status']!= "sold") {
-
-                            // Display the item details
-                            echo '<tr>';
-                            echo "<td>". $row['item_name']. "</td>";
-                            echo "<td>". $row['quantity']. "</td>";
-                            echo '<td>'. $row['price']. '<a type="button" href="./buy_proccess.php?item_name='. $row['item_name']. '&item_id='. $row['item_id']. '&user_id='. $row['user_id']. '&quantity='. $row['quantity']. '" class="btn btn-primary">Buy</a></td>';
-                            echo '</tr>';
+                            if($row['user_id'] != $user_id){
+                                // Display the item details
+                                echo '<tr>';
+                                echo "<td>". $row['item_name']. "</td>";
+                                echo "<td>". $row['quantity']. "</td>";
+                                echo '<td>'. $row['price']. '<a type="button" href="./buy_proccess.php?item_name='. $row['item_name']. '&item_id='. $row['item_id']. '&user_id='. $row['user_id']. '&quantity='. $row['quantity'].'&price=' . $row['price'] .'&m_id='.$row['market_id'].'" class="btn btn-primary">Buy</a></td>';
+                                echo '</tr>';
+                            }else{
+                                echo '<tr>';
+                                echo "<td>". $row['item_name']. "</td>";
+                                echo "<td>". $row['quantity']. "</td>";
+                                echo '<td>'. $row['price']. '<a type="button" class="btn btn-light">You cannot buy this item.</a></td>';
+                                echo '</tr>';
+                            }
                         } else {
 
                             // Display the item details if it is sold
